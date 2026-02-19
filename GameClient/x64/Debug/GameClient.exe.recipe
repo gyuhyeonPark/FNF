@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <ProjectOutputs>
+    <ProjectOutput>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF_DEMO\Game\Bin\GameClient.exe</FullPath>
+    </ProjectOutput>
+  </ProjectOutputs>
+  <ContentFiles>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF_DEMO\Game\Bin\AtlasUVShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF_DEMO\Game\Bin\billboard.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF_DEMO\Game\Bin\ColorShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF_DEMO\Game\Bin\dbg.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF_DEMO\Game\Bin\EffectShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF_DEMO\Game\Bin\flipbook.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF_DEMO\Game\Bin\RSG.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF_DEMO\Game\Bin\sprite.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF_DEMO\Game\Bin\std2d.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF_DEMO\Game\Bin\tile.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF_DEMO\Game\Bin\UVShader.cso</FullPath>
+    </ContentFile>
+  </ContentFiles>
+  <SatelliteDlls />
+  <NonRecipeFileRefs />
+</Project>
