@@ -77,18 +77,34 @@ void NoteReceptor::Begin()
 		float holdTimeSec = holdMs * 0.001f;
 		float holdPixelLength = m_noteSpeed * holdTimeSec;
 
-		float spriteHeight = 100.f; // 현재 scale 기준
-		int spriteCount = (int)ceil(holdPixelLength / spriteHeight);
+		Ptr<ASprite>	sprite = new ASprite;
+		Ptr<GameObject> barObj = new GameObject;
 
-		for (int j = 1; j < spriteCount; j++)
+		sprite = FIND(ASprite, noteHoldNames[int(m_dir) * 2]);     // body
+
+		barObj->AddComponent(new CTransform);
+		barObj->AddComponent(new CSpriteRenderer);
+		barObj->AddComponent(new Note(m_noteSpeed, m_dir));
+
+		barObj->SpriteRenderer()->SetSprite(sprite);
+		barObj->SpriteRenderer()->SetMesh(FIND(AMesh, L"RectMesh"));
+
+		barObj->GetTransform()->SetIndependentScale(true);
+		barObj->GetTransform()->SetRelativeScale(Vec3(35.f, holdPixelLength, 1.f));
+
+		GetOwner()->AddChild(barObj);
+
+		float localTime = startTime * 0.001f + timeOffset;
+		float yOffset = m_noteSpeed * localTime + 200.f;
+
+		barObj->GetTransform()->SetRelativePosition(Vec3(0.f, -yOffset - holdPixelLength * 0.5f, 0.f));
+	
+		// end sprite
 		{
-			Ptr<ASprite> sprite = new ASprite;
+			Ptr<ASprite>	sprite = new ASprite;
 			Ptr<GameObject> barObj = new GameObject;
 
-			if (j == spriteCount - 1)
-				sprite = FIND(ASprite, noteHoldNames[int(m_dir) * 2 + 1]); // end
-			else
-				sprite = FIND(ASprite, noteHoldNames[int(m_dir) * 2]);     // body
+			sprite = FIND(ASprite, noteHoldNames[int(m_dir) * 2 + 1]); // end
 
 			barObj->AddComponent(new CTransform);
 			barObj->AddComponent(new CSpriteRenderer);
@@ -102,12 +118,7 @@ void NoteReceptor::Begin()
 
 			GetOwner()->AddChild(barObj);
 
-			float localTime = startTime * 0.001f + timeOffset;
-			float yOffset = m_noteSpeed * localTime + 200.f;
-
-			barObj->GetTransform()->SetRelativePosition(
-				Vec3(0.f, -yOffset - spriteHeight * j, 0.f)
-			);
+			barObj->GetTransform()->SetRelativePosition(Vec3(0.f, -yOffset - holdPixelLength, 0.f));
 		}
 	}
 }

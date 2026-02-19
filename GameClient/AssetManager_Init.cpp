@@ -351,7 +351,7 @@ void AssetManager::CreateEngineSprite()
 	}
 
 	pAtlas = FIND(ATexture, L"NoteHoldBar");
-	SlicePixel = Vec2(52, 87);
+	SlicePixel = Vec2(52, 85);
 	Width = pAtlas->GetWidth();
 	Height = pAtlas->GetHeight();
 

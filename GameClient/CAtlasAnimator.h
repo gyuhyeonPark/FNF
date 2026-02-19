@@ -26,8 +26,9 @@ public:
 		MeshRenderer()->GetMtrl()->SetScalar(INT_0, 1);
 	}
 
+
 private:
-	Ptr<ATexture> m_atlasTexture;
+	ATexture* m_atlasTexture;
 	string m_currentAnimKey;
 	std::unordered_map<string, AtlasAnimation> m_animMap;
 	float m_animTime = 0.0f;

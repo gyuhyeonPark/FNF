@@ -55,26 +55,21 @@ void PlayerNoteReceptor::Begin()
 		break;
 	}
 
-	for (int i = 0; i < (UINT)PKeyState::END; ++i)
+	// shader와 texture가 같은 Mtrl을 공유하면 sprite 중복이 발생함. 
+	// shader를 같이 사용하는데, scalar를 1로 만들면 원치 않던 animator의 출력이 되는걸로 추정.
+	for (int i = 0; i < 2; ++i)
 	{
 		m_effectAnim[i] = new CAtlasAnimator;
 		m_effectAnim[i]->LoadMapInfo(effectTexture);
-
 		Ptr<GameObject> effectObj = new GameObject();
 		effectObj->SetName(L"effect");
 		effectObj->AddComponent(new CTransform);
 		effectObj->AddComponent(new CMeshRenderer);
 		effectObj->AddComponent(m_effectAnim[i].Get());
 		effectObj->GetMeshRenderer()->SetMesh(FIND(AMesh, L"RectMesh"));
+		effectObj->GetMeshRenderer()->SetMtrl(effectMtrlVolatile);
 		
-		if (i == (UINT)PKeyState::PRESSED)
-			effectObj->GetMeshRenderer()->SetMtrl(effectMtrl);
-		else
-		{
-			effectObj->GetMeshRenderer()->SetMtrl(effectMtrlVolatile);
-			m_effectAnim[i]->SetAsVolatile();
-		}
-			
+		m_effectAnim[i]->SetAsVolatile();		
 		GetOwner()->AddChild(effectObj);
 
 		//effectObj->Transform()->SetRelativePosition(Transform()->GetRelativePosition() - Vec3(0.f, 0.f , 1.f));
@@ -110,8 +105,7 @@ void PlayerNoteReceptor::Tick()
 		{
 			++m_tapTimingIdx;
 
-			m_characterController->PlayAnimation
-			(m_dir, true);
+			m_characterController->PlayAnimation(m_dir, true);
 		
 			if (pressTimings[UINT(m_difficulty)].size() > m_pressedTimingIdx 
 				&& currentNoteTiming == pressTimings[UINT(m_difficulty)][m_pressedTimingIdx].first)
@@ -136,6 +130,11 @@ void PlayerNoteReceptor::ActivateTapEvent()
 		// note 입력 판정 x. 그대로 진행
 		m_characterController->PlayAnimation(m_dir, true);
 		m_anim->Play(tapArrowName[UINT(m_dir)], false);
+
+		//m_effectAnim[(UINT)PKeyState::TAP]->Play(m_effectNames[(UINT)EFFECT_ANIMKEY::START], false);
+		//m_effectAnim[(UINT)PKeyState::PRESSED]->Play(m_effectNames[(UINT)EFFECT_ANIMKEY::PRESSED], false);
+		m_effectAnim[(UINT)PKeyState::TAP]->Play(m_effectNames[(UINT)EFFECT_ANIMKEY::RELEASED], false);
+
 	}
 	else
 	{
@@ -146,9 +145,6 @@ void PlayerNoteReceptor::ActivateTapEvent()
 
 		m_anim->Play(confirmTapName[UINT(m_dir)], false);
 		
-		m_effectAnim[(UINT)PKeyState::TAP]->Play(m_effectNames[(UINT)EFFECT_ANIMKEY::START], false);
-		m_effectAnim[(UINT)PKeyState::PRESSED]->Play(m_effectNames[(UINT)EFFECT_ANIMKEY::PRESSED], true);
-		//m_effectAnim[(UINT)PKeyState::RELEASED]->Play(m_effectNames[(UINT)EFFECT_ANIMKEY::RELEASED], false);
 
 		if (diff <= SICK)
 		{

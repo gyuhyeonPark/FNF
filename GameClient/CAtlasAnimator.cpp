@@ -3,7 +3,7 @@
 #include "GameObject.h"
 
 CAtlasAnimator::CAtlasAnimator()
-	: m_animTime(0.f), m_curFrame(0.f), m_isLoop(false), m_isAnimEnd(true), m_isVolatile(false)
+	: m_currentAnimKey(""), m_animTime(0.f), m_curFrame(0.f), m_isLoop(false), m_isAnimEnd(true), m_isVolatile(false), m_atlasTexture(nullptr)
 {
 }
 
@@ -61,7 +61,9 @@ void CAtlasAnimator::UpdateAnimation(float dt)
 
 void CAtlasAnimator::LoadMapInfo(Ptr<ATexture> tex)
 {
-	m_atlasTexture = tex;
+	assert(m_atlasTexture == nullptr);
+	assert(m_currentAnimKey == "");
+	m_atlasTexture = tex.Get();
 
 	m_atlasTexture->m_fileName = m_atlasTexture->GetRelativePath();
 
