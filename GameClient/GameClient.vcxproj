@@ -1,0 +1,519 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>18.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{6fb3a5e4-91f7-4073-9464-f3b03e1f2a38}</ProjectGuid>
+    <RootNamespace>GameClient</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <EnableUnitySupport>true</EnableUnitySupport>
+    <EnableASAN>false</EnableASAN>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <EnableUnitySupport>true</EnableUnitySupport>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)Game\Bin\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)Game\Bin\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)Game\Bin\</OutDir>
+    <ExternalIncludePath>$(SolutionDir)Libraries\Include\;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>$(SolutionDir)Libraries\Lib\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)Game\Bin\</OutDir>
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+    <ExternalIncludePath>$(SolutionDir)Libraries\Include\;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>$(SolutionDir)Libraries\Lib\;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\Include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)Libraries\Lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\Include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)Libraries\Lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Libraries\Include\FMOD\fmod.h" />
+    <ClInclude Include="..\Libraries\Include\FMOD\fmod.hpp" />
+    <ClInclude Include="..\Libraries\Include\FMOD\fmod_codec.h" />
+    <ClInclude Include="..\Libraries\Include\FMOD\fmod_common.h" />
+    <ClInclude Include="..\Libraries\Include\FMOD\fmod_dsp.h" />
+    <ClInclude Include="..\Libraries\Include\FMOD\fmod_dsp_effects.h" />
+    <ClInclude Include="..\Libraries\Include\FMOD\fmod_errors.h" />
+    <ClInclude Include="..\Libraries\Include\FMOD\fmod_output.h" />
+    <ClInclude Include="AFlipbook.h" />
+    <ClInclude Include="AGrapicShader.h" />
+    <ClInclude Include="AMaterial.h" />
+    <ClInclude Include="AMesh.h" />
+    <ClInclude Include="AScene.h" />
+    <ClInclude Include="ASprite.h" />
+    <ClInclude Include="Asset.h" />
+    <ClInclude Include="AssetKeys.h" />
+    <ClInclude Include="AssetManager.h" />
+    <ClInclude Include="assets.h" />
+    <ClInclude Include="AssetUI.h" />
+    <ClInclude Include="ATexture.h" />
+    <ClInclude Include="ATileMap.h" />
+    <ClInclude Include="AudioWaveUI.h" />
+    <ClInclude Include="BeatCamera.h" />
+    <ClInclude Include="CameraUI.h" />
+    <ClInclude Include="CBillboardRenderer.h" />
+    <ClInclude Include="CCamera.h" />
+    <ClInclude Include="CCollider2D.h" />
+    <ClInclude Include="CEditorCamMoveScript.h" />
+    <ClInclude Include="CFlipbookRenderer.h" />
+    <ClInclude Include="CLight2D.h" />
+    <ClInclude Include="Collider2DUI.h" />
+    <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="ComboManager.h" />
+    <ClInclude Include="components.h" />
+    <ClInclude Include="ComponentUI.h" />
+    <ClInclude Include="ComputeShaderUI.h" />
+    <ClInclude Include="ContentUI.h" />
+    <ClInclude Include="CRenderComponent.h" />
+    <ClInclude Include="CSpriteRenderer.h" />
+    <ClInclude Include="CStageLoader.h" />
+    <ClInclude Include="CStageTransition.h" />
+    <ClInclude Include="CTileRenderer.h" />
+    <ClInclude Include="EditorManager.h" />
+    <ClInclude Include="EditorUI.h" />
+    <ClInclude Include="extern.h" />
+    <ClInclude Include="FlipbookRendererUI.h" />
+    <ClInclude Include="FlipbookUI.h" />
+    <ClInclude Include="func.h" />
+    <ClInclude Include="GraphicShaderUI.h" />
+    <ClInclude Include="imconfig.h" />
+    <ClInclude Include="imgui.h" />
+    <ClInclude Include="imgui_impl_dx11.h" />
+    <ClInclude Include="imgui_impl_win32.h" />
+    <ClInclude Include="imgui_internal.h" />
+    <ClInclude Include="imstb_rectpack.h" />
+    <ClInclude Include="imstb_textedit.h" />
+    <ClInclude Include="imstb_truetype.h" />
+    <ClInclude Include="Inspector.h" />
+    <ClInclude Include="ISongDataUI.h" />
+    <ClInclude Include="Light2DUI.h" />
+    <ClInclude Include="ListUI.h" />
+    <ClInclude Include="MaterialUI.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="MeshRendererUI.h" />
+    <ClInclude Include="MeshUI.h" />
+    <ClInclude Include="NoteDataUI.h" />
+    <ClInclude Include="Outliner.h" />
+    <ClInclude Include="Parser.h" />
+    <ClInclude Include="CImage.h" />
+    <ClInclude Include="CMeshRenderer.h" />
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="ConstantBuffer.h" />
+    <ClInclude Include="CScript.h" />
+    <ClInclude Include="CTransform.h" />
+    <ClInclude Include="Engine.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="enum.h" />
+    <ClInclude Include="framework.h" />
+    <ClInclude Include="GameClient.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Graphics.h" />
+    <ClInclude Include="KeyManager.h" />
+    <ClInclude Include="Layer.h" />
+    <ClInclude Include="Macros.h" />
+    <ClInclude Include="PathManager.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="IPickable.h" />
+    <ClInclude Include="PickableNote.h" />
+    <ClInclude Include="PrefabUI.h" />
+    <ClInclude Include="Ptr.h" />
+    <ClInclude Include="RenderManager.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="IResourceManager.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SceneUI.h" />
+    <ClInclude Include="SimpleMath.h" />
+    <ClInclude Include="SingletonClass.h" />
+    <ClInclude Include="SongEditorUI.h" />
+    <ClInclude Include="SongManager.h" />
+    <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="SoundUI.h" />
+    <ClInclude Include="Source\ScriptMgr.h" />
+    <ClInclude Include="Source\Scripts\CAtlasAnimator.h" />
+    <ClInclude Include="Source\Scripts\CCameraMove.h" />
+    <ClInclude Include="Source\Scripts\CCharacterController.h" />
+    <ClInclude Include="Source\Scripts\CComboImage.h" />
+    <ClInclude Include="Source\Scripts\CComboManager.h" />
+    <ClInclude Include="Source\Scripts\CMissileScript.h" />
+    <ClInclude Include="Source\Scripts\COpponentController.h" />
+    <ClInclude Include="Source\Scripts\CPlayerController.h" />
+    <ClInclude Include="Source\Scripts\CPlayerScript.h" />
+    <ClInclude Include="Source\Scripts\CDotween.h" />
+    <ClInclude Include="Source\Scripts\CDotweenTimer.h" />
+    <ClInclude Include="Source\Scripts\Easing.h" />
+    <ClInclude Include="Source\Scripts\CEventManager.h" />
+    <ClInclude Include="Source\Scripts\CGameManager.h" />
+    <ClInclude Include="Source\Scripts\CNote.h" />
+    <ClInclude Include="Source\Scripts\CNoteReceptor.h" />
+    <ClInclude Include="Source\Scripts\COpponentNoteReceptor.h" />
+    <ClInclude Include="Source\Scripts\CPlayerNoteReceptor.h" />
+    <ClInclude Include="Source\Scripts\CStartingPistol.h" />
+    <ClInclude Include="SpriteRendererUI.h" />
+    <ClInclude Include="SpriteUI.h" />
+    <ClInclude Include="struct.h" />
+    <ClInclude Include="StructuredBuffer.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="TaskManager.h" />
+    <ClInclude Include="TextureUI.h" />
+    <ClInclude Include="TileMapUI.h" />
+    <ClInclude Include="TileRendererUI.h" />
+    <ClInclude Include="TimeManager.h" />
+    <ClInclude Include="tinyxml2.h" />
+    <ClInclude Include="TitleScript.h" />
+    <ClInclude Include="TransformUI.h" />
+    <ClInclude Include="TreeUI.h" />
+    <ClInclude Include="Types.h" />
+    <ClInclude Include="Values.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AFlipbook.cpp" />
+    <ClCompile Include="AGrapicShader.cpp" />
+    <ClCompile Include="AMaterial.cpp" />
+    <ClCompile Include="AMesh.cpp" />
+    <ClCompile Include="AScene.cpp" />
+    <ClCompile Include="ASprite.cpp" />
+    <ClCompile Include="Asset.cpp" />
+    <ClCompile Include="AssetManager.cpp" />
+    <ClCompile Include="AssetManager_Init.cpp" />
+    <ClCompile Include="AssetUI.cpp" />
+    <ClCompile Include="ATexture.cpp" />
+    <ClCompile Include="ATileMap.cpp" />
+    <ClCompile Include="AudioWaveUI.cpp" />
+    <ClCompile Include="BeatCamera.cpp" />
+    <ClCompile Include="CameraUI.cpp" />
+    <ClCompile Include="CBillboardRenderer.cpp" />
+    <ClCompile Include="CCamera.cpp" />
+    <ClCompile Include="CCollider2D.cpp" />
+    <ClCompile Include="CEditorCamMoveScript.cpp" />
+    <ClCompile Include="CFlipbookRenderer.cpp" />
+    <ClCompile Include="CLight2D.cpp" />
+    <ClCompile Include="Collider2DUI.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="ComboManager.cpp" />
+    <ClCompile Include="ComponentUI.cpp" />
+    <ClCompile Include="ComputeShaderUI.cpp" />
+    <ClCompile Include="ContentUI.cpp" />
+    <ClCompile Include="CRenderComponent.cpp" />
+    <ClCompile Include="CSpriteRenderer.cpp" />
+    <ClCompile Include="CStageLoader.cpp" />
+    <ClCompile Include="CStageTransition.cpp" />
+    <ClCompile Include="CTileRenderer.cpp" />
+    <ClCompile Include="EditorManager.cpp" />
+    <ClCompile Include="EditorUI.cpp" />
+    <ClCompile Include="extern.cpp" />
+    <ClCompile Include="FlipbookRendererUI.cpp" />
+    <ClCompile Include="FlipbookUI.cpp" />
+    <ClCompile Include="func.cpp" />
+    <ClCompile Include="GraphicShaderUI.cpp" />
+    <ClCompile Include="imgui.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="imgui_demo.cpp" />
+    <ClCompile Include="imgui_draw.cpp" />
+    <ClCompile Include="imgui_impl_dx11.cpp" />
+    <ClCompile Include="imgui_impl_win32.cpp" />
+    <ClCompile Include="imgui_tables.cpp" />
+    <ClCompile Include="imgui_widgets.cpp" />
+    <ClCompile Include="Inspector.cpp" />
+    <ClCompile Include="Inspector_Init.cpp" />
+    <ClCompile Include="ISongDataUI.cpp" />
+    <ClCompile Include="Light2DUI.cpp" />
+    <ClCompile Include="ListUI.cpp" />
+    <ClCompile Include="MaterialUI.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MeshRendererUI.cpp" />
+    <ClCompile Include="MeshUI.cpp" />
+    <ClCompile Include="NoteDataUI.cpp" />
+    <ClCompile Include="Outliner.cpp" />
+    <ClCompile Include="Parser.cpp" />
+    <ClCompile Include="CImage.cpp" />
+    <ClCompile Include="CMeshRenderer.cpp" />
+    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="ConstantBuffer.cpp" />
+    <ClCompile Include="CScript.cpp" />
+    <ClCompile Include="CTransform.cpp" />
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Engine_Init.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="GameClient.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="KeyManager.cpp" />
+    <ClCompile Include="Layer.cpp" />
+    <ClCompile Include="PathManager.cpp" />
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="IResourceManager.cpp" />
+    <ClCompile Include="IPickable.cpp" />
+    <ClCompile Include="PickableNote.cpp" />
+    <ClCompile Include="PrefabUI.cpp" />
+    <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SceneUI.cpp" />
+    <ClCompile Include="SingletonClass.cpp" />
+    <ClCompile Include="SongEditorUI.cpp" />
+    <ClCompile Include="SongManager.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="SoundUI.cpp" />
+    <ClCompile Include="Source\ScriptMgr.cpp" />
+    <ClCompile Include="Source\Scripts\CAtlasAnimator.cpp" />
+    <ClCompile Include="Source\Scripts\CCameraMove.cpp" />
+    <ClCompile Include="Source\Scripts\CCharacterController.cpp" />
+    <ClCompile Include="Source\Scripts\CComboImage.cpp" />
+    <ClCompile Include="Source\Scripts\CComboManager.cpp" />
+    <ClCompile Include="Source\Scripts\CMissileScript.cpp" />
+    <ClCompile Include="Source\Scripts\COpponentController.cpp" />
+    <ClCompile Include="Source\Scripts\CPlayerController.cpp" />
+    <ClCompile Include="Source\Scripts\CPlayerScript.cpp" />
+    <ClCompile Include="Source\Scripts\CDotween.cpp" />
+    <ClCompile Include="Source\Scripts\CDotweenTimer.cpp" />
+    <ClCompile Include="Source\Scripts\Easing.cpp" />
+    <ClCompile Include="Source\Scripts\CEventManager.cpp" />
+    <ClCompile Include="Source\Scripts\CGameManager.cpp" />
+    <ClCompile Include="Source\Scripts\CNote.cpp" />
+    <ClCompile Include="Source\Scripts\CNoteReceptor.cpp" />
+    <ClCompile Include="Source\Scripts\COpponentNoteReceptor.cpp" />
+    <ClCompile Include="Source\Scripts\CPlayerNoteReceptor.cpp" />
+    <ClCompile Include="Source\Scripts\CStartingPistol.cpp" />
+    <ClCompile Include="SpriteRendererUI.cpp" />
+    <ClCompile Include="SpriteUI.cpp" />
+    <ClCompile Include="StructuredBuffer.cpp" />
+    <ClCompile Include="TaskManager.cpp" />
+    <ClCompile Include="TextureUI.cpp" />
+    <ClCompile Include="TileMapUI.cpp" />
+    <ClCompile Include="TileRendererUI.cpp" />
+    <ClCompile Include="TimeManager.cpp" />
+    <ClCompile Include="tinyxml2.cpp" />
+    <ClCompile Include="TitleScript.cpp" />
+    <ClCompile Include="TransformUI.cpp" />
+    <ClCompile Include="TreeUI.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GameClient.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="GameClient.ico" />
+    <Image Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Libraries\Include\FMOD\fmod.cs" />
+    <None Include="..\Libraries\Include\FMOD\fmod_dsp.cs" />
+    <None Include="..\Libraries\Include\FMOD\fmod_errors.cs" />
+    <None Include="SimpleMath.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\Game\Contents\Shaders\AtlasUVShader.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VSMainAnim</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VSMainAnim</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="..\Game\Contents\Shaders\billboard.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS_Billboard</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS_Billboard</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="..\Game\Contents\Shaders\ColorShader.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VSMain</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VSMain</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VSMain</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VSMain</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="..\Game\Contents\Shaders\Combo.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS_Std2D</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS_Std2D</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="..\Game\Contents\Shaders\dbg.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS_Debug</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS_Debug</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="..\Game\Contents\Shaders\EffectShader.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VSMainAnim</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VSMainAnim</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="..\Game\Contents\Shaders\flipbook.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS_Flipbook</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS_Flipbook</EntryPointName>
+    </FxCompile>
+    <Text Include="..\Game\Contents\Shaders\func.fx">
+      <FileType>Document</FileType>
+    </Text>
+    <FxCompile Include="..\Game\Contents\Shaders\NoteBarShader.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS_Sprite</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS_Sprite</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="..\Game\Contents\Shaders\NoteShader.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS_Sprite</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS_Sprite</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="..\Game\Contents\Shaders\RSG.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS_Std2D</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS_Std2D</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="..\Game\Contents\Shaders\sprite.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS_Sprite</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS_Sprite</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="..\Game\Contents\Shaders\std2d.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS_Std2D</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS_Std2D</EntryPointName>
+    </FxCompile>
+    <Text Include="..\Game\Contents\Shaders\struct.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <FxCompile Include="..\Game\Contents\Shaders\tile.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS_Tile</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS_Tile</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="..\Game\Contents\Shaders\UIAtlasUVShader.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VSMainAnim</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VSMainAnim</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="..\Game\Contents\Shaders\UVShader.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VSMain</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VSMain</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VSMain</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VSMain</EntryPointName>
+    </FxCompile>
+    <Text Include="..\Game\Contents\Shaders\value.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </EntryPointName>
+      <FileType>Document</FileType>
+    </Text>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

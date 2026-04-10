@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <ProjectOutputs>
+    <ProjectOutput>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF\Game\Bin\GameClient.exe</FullPath>
+    </ProjectOutput>
+  </ProjectOutputs>
+  <ContentFiles>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF\Game\Bin\AtlasUVShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF\Game\Bin\billboard.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF\Game\Bin\ColorShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF\Game\Bin\Combo.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF\Game\Bin\dbg.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF\Game\Bin\EffectShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF\Game\Bin\flipbook.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF\Game\Bin\NoteBarShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF\Game\Bin\NoteShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF\Game\Bin\RSG.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF\Game\Bin\sprite.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF\Game\Bin\std2d.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF\Game\Bin\tile.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF\Game\Bin\UIAtlasUVShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\141245124\source\repos\GameClient\FNF\Game\Bin\UVShader.cso</FullPath>
+    </ContentFile>
+  </ContentFiles>
+  <SatelliteDlls />
+  <NonRecipeFileRefs />
+</Project>
