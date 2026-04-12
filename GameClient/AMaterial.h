@@ -33,7 +33,7 @@ public:
 
     void Clear();
 
-    GET_SET(RENDER_DOMAIN, Domain);
+    //GET_SET(RENDER_DOMAIN, Domain);
 
 private:
 	Ptr<AGraphicShader> m_shader;

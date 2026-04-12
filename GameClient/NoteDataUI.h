@@ -64,13 +64,16 @@ public:
 public:
 	virtual void Update() override;
 	virtual void DrawOnWaveForm(int _idx) override;
-	virtual void Record() override;
-	virtual void Undo() override;
-	virtual void Delete() override;
 	virtual void ClearList() override;
+
 
 	virtual void Save(Document& doc) override;
 	virtual void Load(Document& doc) override;
+
+private:
+	virtual void Record() override;
+	virtual void Undo() override;
+	virtual void Delete() override;
 	virtual void DetectPicking() override;
 
 private:

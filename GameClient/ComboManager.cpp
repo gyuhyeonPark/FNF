@@ -3,7 +3,7 @@
 #include "AssetManager.h"
 
 ComboManager::ComboManager()
-	: m_currentCombo(0), m_destination(Vec3(0.f, 100.f, 0.f))
+	: CScript(-1), m_currentCombo(0), m_destination(Vec3(0.f, 100.f, 0.f))
 	, m_startPosition(Vec3(0.f, -100.f, 0.f)), gravity(9.8f), m_velocity(6.f)
 {
 	m_comboNumVec.resize(3);

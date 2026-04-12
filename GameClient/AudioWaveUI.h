@@ -2,6 +2,7 @@
 #include "EditorUI.h"
 #include "../GameClient/Source/Scripts/CNoteReceptor.h"
 #include "ISongDataUI.h"
+#include "IResourceManager.h"
 
 struct WaveSample
 {
@@ -36,11 +37,6 @@ private:
 
 	void ChangeSong(DWORD_PTR _ListUI);
 
-	void NoteMode_Tick();
-	void EventMode_Tick();
-
-	void Record_Tick();
-
 	void DetectPicking();
 	void DetectEventPicking();
 
@@ -50,8 +46,6 @@ private:
 	wstring OpenFileDialog();
 
 private:
-	bool m_charIdx;		// 0 : player  1 : opponent
-
 	std::vector<WaveSample> m_waveform[2];
 	std::vector<pair<string, string>> AudioWaveNameVec;
 
@@ -69,7 +63,7 @@ private:
 	bool m_eventMode;
 	bool m_recordMode;
 
-	pair<TapIter, std::list<int>*> m_pickEventInfo;
+	//pair<TapIter, std::list<int>*> m_pickEventInfo;
 
 	ISongDataUI* m_songDataUIs[(UINT)EDIT_TYPE::END];
 	EDIT_TYPE m_currentType;

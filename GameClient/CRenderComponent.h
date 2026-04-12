@@ -11,6 +11,7 @@ public:
     virtual ~CRenderComponent();
 
 public:
+    GET_SET(Ptr<AMaterial>, Mtrl);
     GET_SET(Ptr<AMesh>, Mesh);
     virtual void SaveToSceneFile(FILE* _File) override;
     virtual void LoadFromSceneFile(FILE* _File) override;

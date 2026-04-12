@@ -8,7 +8,7 @@
 
 NoteDataUI::NoteDataUI()
 	: EditorUI("NoteDataUI"),
-	m_pressStart{}, m_charIdx(-1),
+	m_pressStart{},
 	m_drawWidth(1800.f), m_drawHeight(80.f),
 	m_noteSpeed(0.5f), m_rectLength(4.f), m_currentDiff(DIFFICULTIES::HARD)
 {
@@ -24,6 +24,44 @@ void NoteDataUI::Update()
 {
 	UpdateNoteActive();
 	UpdateNotePos();
+
+	ImGui::Text("Recording");
+
+	const char* label = m_recordMode ? "STOPRECORD" : "STARTRECORD";
+
+	if (ImGui::Button(label, Vec2(140.f, 20.f)))
+	{
+		m_recordMode = !m_recordMode;
+	}
+
+	if (m_recordMode)
+		Record();
+
+	ImGui::SameLine();
+	const char* charName = m_charIdx == 0 ? "Player" : "Opponent";
+
+	if (ImGui::Button(charName, Vec2(80.f, 20.f)))
+	{
+		m_charIdx = !m_charIdx;
+	}
+
+	if (ImGui::Button("Undo", Vec2(80.f, 20.f)))
+	{
+		Undo();
+	}
+
+	ImGui::SameLine();
+	if (ImGui::Button("Clear", Vec2(80.f, 20.f)))
+	{
+		ClearList();
+	}
+
+	if (ImGui::IsKeyPressed(ImGuiKey_Delete, false))
+	{
+		Delete();
+	}
+
+	DetectPicking();
 }
 
 void NoteDataUI::DrawOnWaveForm(int _idx)

@@ -157,23 +157,25 @@ void AudioWaveUI::Tick_UI()
 
 	ImGui::Separator();
 
-	DetectPicking();
-
-	if (m_eventMode)
-		EventMode_Tick();
-	else
-		NoteMode_Tick();
-
 	if (ImGui::Button("SAVE", Vec2(80.f, 20.f)))
 	{
 		SaveMap();
+	}
+
+	// 기존 File Load
+	if (ImGui::Button("Load Map"))
+	{
+		std::wstring path = OpenFileDialog();
+		if (!path.empty())
+		{
+			LoadMap(path);
+		}
 	}
 
 	ImGui::Spacing();
 	ImGui::Spacing();
 	ImGui::Spacing();
 	ImGui::Separator();
-
 
 	// 현재 EditType에게 상시로 전달.
 	m_songDataUIs[(UINT)m_currentType]->SetCharacterPos(playerPos, opponentPos);
@@ -469,7 +471,7 @@ void AudioWaveUI::DrawWaveform(int _idx)
 		{
 			if (type != _idx) continue;
 
-			auto& eList = eventTimings[(int)m_currentEventType][type];
+			auto& eList = eventTimings[(int)m_currentType][type];
 
 			for (auto iter = eList.begin(); iter != eList.end(); ++iter)
 			{
@@ -544,56 +546,7 @@ void AudioWaveUI::ChangeSong(DWORD_PTR _ListUI)
 	}
 }
 
-void AudioWaveUI::NoteMode_Tick()
-{
-	ImGui::Text("Recording");
-
-	const char* label = m_recordMode ? "STOPRECORD" : "STARTRECORD";
-
-	if (ImGui::Button(label, Vec2(140.f, 20.f)))
-	{
-		m_recordMode = !m_recordMode;
-	}
-
-	if (m_recordMode)
-		Record_Tick();
-
-	ImGui::SameLine();
-	const char* charName = m_charIdx == 0 ? "Player" : "Opponent";
-
-	if (ImGui::Button(charName, Vec2(80.f, 20.f)))
-	{
-		m_charIdx = !m_charIdx;
-	}
-
-	if (ImGui::Button("Undo", Vec2(80.f, 20.f)))
-	{
-		m_songDataUIs[(UINT)m_currentType]->Undo();
-	}
-
-	ImGui::SameLine();
-	if (ImGui::Button("Clear", Vec2(80.f, 20.f)))
-	{
-		m_songDataUIs[(UINT)m_currentType]->ClearList();
-	}
-
-	if (ImGui::IsKeyPressed(ImGuiKey_Delete, false))
-	{
-		m_songDataUIs[(UINT)m_currentType]->Delete();
-	}
-
-	// 기존 File Load
-	if (ImGui::Button("Load Map"))
-	{
-		std::wstring path = OpenFileDialog();
-		if (!path.empty())
-		{
-			LoadMap(path);
-		}
-	}
-}
-
-void AudioWaveUI::EventMode_Tick()
+/*void AudioWaveUI::EventMode_Tick()
 {
 	ImGui::Text("Recording");
 
@@ -620,7 +573,8 @@ void AudioWaveUI::EventMode_Tick()
 			if (ImGui::Selectable(eventLabel[n], is_selected))
 			{
 				selected_idx = n;
-				m_currentEventType = (EVENT_TYPE)selected_idx;
+				m_currentType = (EDIT_TYPE)selected_idx;
+				//m_currentType = (EVENT_TYPE)selected_idx;
 				m_recordMode = false;
 			}
 				
@@ -634,14 +588,14 @@ void AudioWaveUI::EventMode_Tick()
 
 	if (ImGui::Button("Player", Vec2(80.f, 20.f)))
 	{
-		eventTimings[(int)m_currentEventType][0].push_back(m_currentPos);
+		eventTimings[(int)m_currentType][0].push_back(m_currentPos);
 		m_charIdx = 0;
 	}
 	ImGui::SameLine();
 
 	if (ImGui::Button("Opponent", Vec2(80.f, 20.f)))
 	{
-		eventTimings[(int)m_currentEventType][1].push_back(m_currentPos);
+		eventTimings[(int)m_currentType][1].push_back(m_currentPos);
 		m_charIdx = 1;
 	}
 
@@ -653,10 +607,10 @@ void AudioWaveUI::EventMode_Tick()
 
 		for (UINT i = 0; i < 2; ++i)
 		{
-			if (eventTimings[(int)m_currentEventType][i].empty())
+			if (eventTimings[(int)m_currentType][i].empty())
 				continue;
 
-			auto iter = --eventTimings[(int)m_currentEventType][i].end();
+			auto iter = --eventTimings[(int)m_currentType][i].end();
 
 			if (time < *(iter))
 			{
@@ -666,8 +620,8 @@ void AudioWaveUI::EventMode_Tick()
 		}
 
 		if (idx != -1)
-			eventTimings[(int)m_currentEventType][idx]
-			.erase(--eventTimings[(int)m_currentEventType][idx].end());
+			eventTimings[(int)m_currentType][idx]
+			.erase(--eventTimings[(int)m_currentType][idx].end());
 	}
 
 	ImGui::SameLine();
@@ -675,7 +629,7 @@ void AudioWaveUI::EventMode_Tick()
 	{
 		for (UINT i = 0; i < 2; ++i)
 		{
-			eventTimings[(int)m_currentEventType][i].clear();
+			eventTimings[(int)m_currentType][i].clear();
 		}
 	}
 	if (ImGui::IsKeyPressed(ImGuiKey_Delete, false))
@@ -689,24 +643,24 @@ void AudioWaveUI::EventMode_Tick()
 			m_pickEventInfo.second = nullptr;
 		}
 	}
-}
+}*/
 
-void AudioWaveUI::Record_Tick()
+/*void AudioWaveUI::Record_Tick()
 {
 	m_songDataUIs[(UINT)m_currentType]->Record();
-}
+}*/
 
 void AudioWaveUI::DetectPicking()
 {
 	if (m_eventMode)
 		DetectEventPicking();
-	else
-		DetectNotePicking();
+/*	else
+		DetectNotePicking();*/
 }
 
 void AudioWaveUI::DetectEventPicking()
 {
-	if (ImGui::IsMouseClicked(0))
+/*	if (ImGui::IsMouseClicked(0))
 	{
 		ImVec2 mPos = ImGui::GetMousePos();
 
@@ -729,14 +683,14 @@ void AudioWaveUI::DetectEventPicking()
 			basePos = opponentPos;
 		}
 
-		pEventList = &eventTimings[(UINT)m_currentEventType][selectedType];
+		pEventList = &eventTimings[(UINT)m_currentType][selectedType];
 		
 		if (pEventList != nullptr && !pEventList->empty())
 		{
 			const TapIter& selectedEventIter = FindSelectedTapNode(mPos, basePos, *pEventList);
 			m_pickEventInfo = { selectedEventIter, pEventList };
 		}
-	}
+	}*/
 }
 
 

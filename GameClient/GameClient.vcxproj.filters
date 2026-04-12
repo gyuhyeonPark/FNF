@@ -508,6 +508,9 @@
     <ClInclude Include="NoteDataUI.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="ComboManager.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -786,6 +789,7 @@
     <ClCompile Include="PickableNote.cpp" />
     <ClCompile Include="ISongDataUI.cpp" />
     <ClCompile Include="NoteDataUI.cpp" />
+    <ClCompile Include="ComboManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Libraries\Include\FMOD\fmod_dsp.cs">
