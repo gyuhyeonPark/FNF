@@ -30,7 +30,7 @@ SongManager::SongManager()
 		L"senpai",
 		L"square",
 		L"whiplash",
-		L"LTR",
+		L"Custom\\LTR",
 	};
 
 	m_customSongVec.resize(STAGENUM::STAGEEND);

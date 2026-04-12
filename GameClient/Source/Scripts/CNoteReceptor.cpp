@@ -133,6 +133,9 @@ void CNoteReceptor::Tick()
 
 		float yOffset = m_noteSpeed * x;
 
+		if (SONGNUM != STAGENUM::LTR)
+			yOffset += m_noteSpeed * MAGIC_NUM;
+
 		// 위치는 x초 * 속력으로 설정
 		currentNote->GetOwner()->SetActive(true);
 		currentNote->Transform()->SetRelativePosition(Vec3(0.f, -yOffset, -5.f));
@@ -150,6 +153,9 @@ void CNoteReceptor::Tick()
 		float holdPixelLength = m_noteSpeed * holdSec;
 
 		float yOffset = m_noteSpeed * x;
+
+		if (SONGNUM != STAGENUM::LTR)
+			yOffset += m_noteSpeed * MAGIC_NUM;
 
 		bodyNote->Transform()->SetRelativePosition(Vec3(0.f, -yOffset - holdPixelLength * 0.5f, -5.f));
 		bodyNote->GetOwner()->SetActive(true);

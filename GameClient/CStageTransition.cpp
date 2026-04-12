@@ -19,7 +19,7 @@ CStageTransition::~CStageTransition()
 
 void CStageTransition::Tick()
 {
-	if (stageIdx == 4)
+	if (stageIdx == 2)
 		return;
 
 	if (m_trigger)
@@ -43,5 +43,19 @@ void CStageTransition::Tick()
 
 			SOUNDMANAGER->MuteSong(true);
 		}
+	}
+
+	if (KEY_PRESSED(KEY::SPACE))
+	{
+		CreateLoadingScene(stageArr[stageIdx], stageNameArr[stageIdx]);
+
+		m_elapsed = 0.f;
+
+		ChangeScene(L"Loading_" + stageNameArr[stageIdx]);
+		ChangeSceneState(SCENE_STATE::PLAY);
+		SongManager::GetInstance()->ChangeSong(stageArr[stageIdx]);
+		++stageIdx;
+
+		SOUNDMANAGER->MuteSong(true);
 	}
 }

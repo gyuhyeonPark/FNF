@@ -12,7 +12,7 @@ const float zoomDuration = 0.035f;
 const float backDuration = 0.1f;
 
 const float HUDZoomRatio = 1.065f;
-const float objZoomRatio = 1.34f;
+float objZoomRatio = 1.34f;
 
 CEventManager::CEventManager()
 	: CScript(SCRIPT_TYPE::EVENTMANAGER),
@@ -74,6 +74,12 @@ void CEventManager::Begin()
 		{
 			return a.timing < b.timing;
 		});
+
+	std::sort(m_lightEventVec.begin(), m_lightEventVec.end(),
+		[](const LightEventInfo& a, const LightEventInfo& b)
+		{
+			return a.start < b.start;
+		});
 }
 
 void CEventManager::Tick()
@@ -88,7 +94,7 @@ void CEventManager::Tick()
 
 			// 카메라 명령
 			if (m_camEventVec[m_camEventIdx].value == 1)
-				pos = m_opponentCamPos;
+				pos = m_opponentCamPos + Vec3(0.f, 50.f, 0.f);
 			else
 				pos = m_playerCamPos;
 
@@ -112,16 +118,30 @@ void CEventManager::Tick()
 			int idx = currentLightInfo.value;
 			float lightTime = m_lightEventVec[m_lightEventIdx].end - m_lightEventVec[m_lightEventIdx].start;
 
+			if (m_lightFlag == 0)
+			{
+				objZoomRatio *= 1.2f;
+				m_cam->SetOrthoScale(m_cam->GetOrthoScale() * 1.2f);
+				m_cam->GetOwner()->GetScript<CCameraMove>()->SetZoomRatioScale(1.2f);
+			}
+
 			m_lightFlag |= (1 << idx);
 
 			m_directionalLight->SetLightColor(Vec3(0.2f, 0.2f, 0.2f));
 			m_spotLight[idx]->SetLightColor(Vec3(0.9f, 0.9f, 0.9f));
+
+
 			m_spotLight[idx]->GetOwner()->GetScript<CDotween>()->DONothing(lightTime)->OnComplete([this, idx]()
 				{
 					m_spotLight[idx]->SetLightColor(Vec3(0.f, 0.f, 0.f));
 					m_lightFlag &= ~(1 << idx);
 					if (m_lightFlag == 0)
+					{
+						objZoomRatio /= 1.2f;
+						m_cam->GetOwner()->GetScript<CCameraMove>()->SetZoomRatioScale(1.f / 1.2f);
+						m_cam->SetOrthoScale(m_cam->GetOrthoScale() / 1.2f);
 						m_directionalLight->SetLightColor(Vec3(0.9f, 0.9f, 0.9f));
+					}
 				});
 
 			m_lightEventIdx++;

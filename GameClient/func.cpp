@@ -850,31 +850,31 @@ void CreateScene(STAGENUM stage, DIFFICULTIES diff, wstring sceneName)
 	pScene->AddObject(1, playerObject);
 
 	// Opponent Object 추가
-	pObject = new GameObject;
-	pObject->SetName(L"Opponent");
-	pObject->AddComponent(new CTransform);
-	pObject->AddComponent(new CMeshRenderer);
-	pObject->AddComponent(new CDotween);
+	Ptr<GameObject> opponentObject = new GameObject;
+	opponentObject->SetName(L"Opponent");
+	opponentObject->AddComponent(new CTransform);
+	opponentObject->AddComponent(new CMeshRenderer);
+	opponentObject->AddComponent(new CDotween);
 
 	Ptr<CAtlasAnimator> opponentAnim = new CAtlasAnimator();
 	opponentAnim->LoadMapInfo(FIND(ATexture, L"daddy"));
-	pObject->AddComponent(opponentAnim.Get());
+	opponentObject->AddComponent(opponentAnim.Get());
 
 	Ptr<COpponentController> oController = new COpponentController();
 	oController->SetAnimator(opponentAnim);
-	pObject->AddComponent(oController.Get());
+	opponentObject->AddComponent(oController.Get());
 	gm->SetOpponentController(oController.Get());
 
-	pObject->AddComponent(new CCollider2D);
-	pObject->Transform()->SetRelativePosition(Vec3(-280.f, -100.f, 1.f));
-	pObject->Transform()->SetRelativeScale(Vec3(300.f, 450.f, 1.f));
+	opponentObject->AddComponent(new CCollider2D);
+	opponentObject->Transform()->SetRelativePosition(Vec3(-280.f, -100.f, 1.f));
+	opponentObject->Transform()->SetRelativeScale(Vec3(300.f, 450.f, 1.f));
 
-	pObject->MeshRenderer()->SetMesh(AssetManager::GetInstance()->Find<AMesh>(L"RectMesh"));
-	pObject->MeshRenderer()->SetMaterial(AssetManager::GetInstance()->Find<AMaterial>(L"Daddy"));
+	opponentObject->MeshRenderer()->SetMesh(AssetManager::GetInstance()->Find<AMesh>(L"RectMesh"));
+	opponentObject->MeshRenderer()->SetMaterial(AssetManager::GetInstance()->Find<AMaterial>(L"Daddy"));
 
-	gm->SetOpponent(pObject);
+	gm->SetOpponent(opponentObject);
 
-	pScene->AddObject(2, pObject);
+	pScene->AddObject(2, opponentObject);
 
 	// GirlFriend
 	pObject = new GameObject;
@@ -1005,7 +1005,7 @@ void CreateScene(STAGENUM stage, DIFFICULTIES diff, wstring sceneName)
 		pObject->Light2D()->SetRadius(800.f);
 		pObject->Transform()->SetRelativePosition(Vec3(-266.f, 370.f, 10.f));
 
-		dirVec = playerObject->Transform()->GetRelativePosition() - pObject->Transform()->GetRelativePosition();
+		dirVec = opponentObject->Transform()->GetRelativePosition() - pObject->Transform()->GetRelativePosition();
 		dirVec.z = 0.f;
 		dirVec.Normalize();
 

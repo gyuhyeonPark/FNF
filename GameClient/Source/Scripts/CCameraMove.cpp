@@ -129,6 +129,11 @@ void CCameraMove::BeatHeat(float _zoomDuration, float _returnDuration, float _zo
 	m_zoomRatio = _zoomRatio;
 }
 
+void CCameraMove::SetZoomRatioScale(float _ratio)
+{
+	m_initZoomRatio *= _ratio;
+}
+
 void CCameraMove::SaveToSceneFile(FILE* _File)
 {
 }

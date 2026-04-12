@@ -3,6 +3,7 @@
 
 STAGENUM stageArr[] =
 {
+	STAGENUM::SENPAI,
 	STAGENUM::LTR,
 /*	STAGENUM::FRESH,
 	STAGENUM::DADBATTLE,
@@ -11,6 +12,7 @@ STAGENUM stageArr[] =
 
 wstring stageNameArr[] =
 {
+	 L"Senpai",
 	 L"LTR",
 /*	 L"Fresh",
 	 L"Dadbattle",

@@ -42,6 +42,9 @@
 #include "C:\Users\141245124\source\repos\GameClient\FNF\GameClient\BeatCamera.cpp"
 
 
+#include "C:\Users\141245124\source\repos\GameClient\FNF\GameClient\CameraMoveDataUI.cpp"
+
+
 #include "C:\Users\141245124\source\repos\GameClient\FNF\GameClient\CameraUI.cpp"
 
 
@@ -67,6 +70,9 @@
 
 
 #include "C:\Users\141245124\source\repos\GameClient\FNF\GameClient\CollisionManager.cpp"
+
+
+#include "C:\Users\141245124\source\repos\GameClient\FNF\GameClient\ComboManager.cpp"
 
 
 #include "C:\Users\141245124\source\repos\GameClient\FNF\GameClient\ComponentUI.cpp"
@@ -141,7 +147,13 @@
 #include "C:\Users\141245124\source\repos\GameClient\FNF\GameClient\Inspector_Init.cpp"
 
 
+#include "C:\Users\141245124\source\repos\GameClient\FNF\GameClient\ISongDataUI.cpp"
+
+
 #include "C:\Users\141245124\source\repos\GameClient\FNF\GameClient\Light2DUI.cpp"
+
+
+#include "C:\Users\141245124\source\repos\GameClient\FNF\GameClient\LightDataUI.cpp"
 
 
 #include "C:\Users\141245124\source\repos\GameClient\FNF\GameClient\ListUI.cpp"
@@ -157,6 +169,9 @@
 
 
 #include "C:\Users\141245124\source\repos\GameClient\FNF\GameClient\MeshUI.cpp"
+
+
+#include "C:\Users\141245124\source\repos\GameClient\FNF\GameClient\NoteDataUI.cpp"
 
 
 #include "C:\Users\141245124\source\repos\GameClient\FNF\GameClient\Outliner.cpp"

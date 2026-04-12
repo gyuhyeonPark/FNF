@@ -18,6 +18,7 @@ private:
 	
 public:
 	void BeatHeat(float _zoomDuration, float _returnDuration, float _zoomRatio);
+	void SetZoomRatioScale(float _ratio);
 
 public:
 	CLONE(CCameraMove);
