@@ -181,6 +181,7 @@
     <ClInclude Include="ATileMap.h" />
     <ClInclude Include="AudioWaveUI.h" />
     <ClInclude Include="BeatCamera.h" />
+    <ClInclude Include="CameraMoveDataUI.h" />
     <ClInclude Include="CameraUI.h" />
     <ClInclude Include="CBillboardRenderer.h" />
     <ClInclude Include="CCamera.h" />
@@ -218,6 +219,7 @@
     <ClInclude Include="Inspector.h" />
     <ClInclude Include="ISongDataUI.h" />
     <ClInclude Include="Light2DUI.h" />
+    <ClInclude Include="LightDataUI.h" />
     <ClInclude Include="ListUI.h" />
     <ClInclude Include="MaterialUI.h" />
     <ClInclude Include="Menu.h" />
@@ -311,6 +313,7 @@
     <ClCompile Include="ATileMap.cpp" />
     <ClCompile Include="AudioWaveUI.cpp" />
     <ClCompile Include="BeatCamera.cpp" />
+    <ClCompile Include="CameraMoveDataUI.cpp" />
     <ClCompile Include="CameraUI.cpp" />
     <ClCompile Include="CBillboardRenderer.cpp" />
     <ClCompile Include="CCamera.cpp" />
@@ -351,6 +354,7 @@
     <ClCompile Include="Inspector_Init.cpp" />
     <ClCompile Include="ISongDataUI.cpp" />
     <ClCompile Include="Light2DUI.cpp" />
+    <ClCompile Include="LightDataUI.cpp" />
     <ClCompile Include="ListUI.cpp" />
     <ClCompile Include="MaterialUI.cpp" />
     <ClCompile Include="Menu.cpp" />
@@ -493,6 +497,10 @@
     <Text Include="..\Game\Contents\Shaders\struct.hlsl">
       <FileType>Document</FileType>
     </Text>
+    <FxCompile Include="..\Game\Contents\Shaders\std2dLight.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS_Std2D</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS_Std2D</EntryPointName>
+    </FxCompile>
     <FxCompile Include="..\Game\Contents\Shaders\tile.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS_Tile</EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS_Tile</EntryPointName>

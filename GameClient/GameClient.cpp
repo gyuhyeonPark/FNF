@@ -23,7 +23,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // _CrtSetBreakAlloc(int);
     
     // Engine 초기화   
-    if (FAILED(Engine::GetInstance()->Init(hInstance, GWinSizeX, GWinSizeY, true)))
+    if (FAILED(Engine::GetInstance()->Init(hInstance, GWinSizeX, GWinSizeY, false)))
         return 0;
 
     // 메세지 루프

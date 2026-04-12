@@ -3,18 +3,18 @@
 
 STAGENUM stageArr[] =
 {
-	STAGENUM::BOPEEBO,
-	STAGENUM::FRESH,
+	STAGENUM::LTR,
+/*	STAGENUM::FRESH,
 	STAGENUM::DADBATTLE,
-	STAGENUM::SENPAI,
+	STAGENUM::SENPAI,*/
 };
 
 wstring stageNameArr[] =
 {
-	 L"Bopeebo",
-	 L"Fresh",
+	 L"LTR",
+/*	 L"Fresh",
 	 L"Dadbattle",
-	 L"Senpai",
+	 L"Senpai",*/
 };
 static int stageIdx = 0;
 

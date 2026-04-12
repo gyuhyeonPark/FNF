@@ -7,10 +7,9 @@
 #include "Source\Scripts\CGameManager.h"
 
 NoteDataUI::NoteDataUI()
-	: EditorUI("NoteDataUI"),
+	: EditorUI("NoteDataUI"), ISongDataUI(),
 	m_pressStart{},
-	m_drawWidth(1800.f), m_drawHeight(80.f),
-	m_noteSpeed(0.5f), m_rectLength(4.f), m_currentDiff(DIFFICULTIES::HARD)
+	m_noteSpeed(0.5f), m_currentDiff(DIFFICULTIES::HARD)
 {
 	m_pickTapInfo = { recordTapList[0][0].end(), nullptr };
 	m_pickPressInfo = { recordPressList[0][0].end(), nullptr };
@@ -297,157 +296,146 @@ void NoteDataUI::Save(Document& doc)
 {
 	auto& alloc = doc.GetAllocator();
 
-	// =========================
-	// notes
-	// =========================
+	// 이미 있으면 덮어쓰기
+	if (doc.HasMember("notes"))
+		doc.RemoveMember("notes");
+
+	Value notes(kObjectType);
+
+	const char* diffNames[3] = { "easy", "normal", "hard" };
+
+	for (int diff = 0; diff < 3; diff++)
 	{
-		Value notes(kObjectType);
+		Value arr(kArrayType);
 
-		const char* diffNames[3] = { "easy", "normal", "hard" };
-
-		for (int diff = 0; diff < 3; diff++)
+		for (int type = 0; type < 2; type++)
 		{
-			Value arr(kArrayType);
-
-			for (int type = 0; type < 2; type++)
+			for (int dir = 0; dir < (int)ARROW_DIR::END; dir++)
 			{
-				for (int dir = 0; dir < (int)ARROW_DIR::END; dir++)
+				// Tap
+				for (int timeMs : recordTapList[type][dir])
 				{
-					for (int timeMs : recordTapList[type][dir])
-					{
-						int lane = dir;
-						if (type == 1) lane += 4;
+					int lane = dir + (type * 4);
 
-						Value note(kObjectType);
-						note.AddMember("t", timeMs, alloc);
-						note.AddMember("d", lane, alloc);
+					Value note(kObjectType);
+					note.AddMember("t", timeMs, alloc);
+					note.AddMember("d", lane, alloc);
 
-						arr.PushBack(note, alloc);
-					}
+					arr.PushBack(note, alloc);
+				}
 
-					for (pair<int, int> info : recordPressList[type][dir])
-					{
-						int timeMs = info.first;
-						int lengthMs = info.second;
+				// Press
+				for (auto& info : recordPressList[type][dir])
+				{
+					int lane = dir + (type * 4);
 
-						int lane = dir;
-						if (type == 1) lane += 4;
+					Value note(kObjectType);
+					note.AddMember("t", info.first, alloc);
+					note.AddMember("d", lane, alloc);
+					note.AddMember("l", info.second, alloc);
 
-						Value note(kObjectType);
-						note.AddMember("t", timeMs, alloc);
-						note.AddMember("d", lane, alloc);
-						note.AddMember("l", lengthMs, alloc);
-
-						arr.PushBack(note, alloc);
-					}
+					arr.PushBack(note, alloc);
 				}
 			}
-
-			// 정렬
-			std::sort(arr.Begin(), arr.End(),
-				[](const Value& a, const Value& b)
-				{
-					return a["t"].GetInt() < b["t"].GetInt();
-				});
-
-			notes.AddMember(Value().SetString(diffNames[diff], alloc), arr, alloc);
 		}
 
-		doc.AddMember("notes", notes, alloc);
+		std::sort(arr.Begin(), arr.End(),
+			[](const Value& a, const Value& b)
+			{
+				return a["t"].GetInt() < b["t"].GetInt();
+			});
+
+		notes.AddMember(Value().SetString(diffNames[diff], alloc), arr, alloc);
 	}
+
+	doc.AddMember("notes", notes, alloc);
 }
 
 void NoteDataUI::Load(Document& doc)
 {
-	// =========================
-	// 기존 데이터 초기화
-	// =========================
+	// 🔥 기존 데이터 초기화
 	for (int i = 0; i < 2; ++i)
 	{
-		for (int j = 0; j < (int)ARROW_DIR::END; ++j)
+		for (int j = 0; j < (UINT)ARROW_DIR::END; ++j)
 		{
 			recordTapList[i][j].clear();
 			recordPressList[i][j].clear();
 		}
 	}
-	for (auto& each : m_recordedTapNotes)
-	{
-		each.second.obj->Destroy();
-	}
-	for (auto& each : m_recordedPressNotes)
-	{
-		for (int i = 0; i < 3; ++i)
-			each.second.obj[i]->Destroy();
-	}
+
 	m_recordedTapNotes.clear();
 	m_recordedPressNotes.clear();
 
 	// =========================
 	// notes 로드
 	// =========================
-	if (doc.HasMember("notes"))
+	if (!doc.HasMember("notes") || !doc["notes"].IsObject())
+		return;
+
+	const Value& notes = doc["notes"];
+
+	const char* diffNames[3] = { "easy", "normal", "hard" };
+
+	if (!notes.HasMember(diffNames[(int)m_currentDiff]))
+		return;
+
+	const Value& arr = notes[diffNames[(int)m_currentDiff]];
+	if (!arr.IsArray())
+		return;
+
+	for (auto& n : arr.GetArray())
 	{
-		const Value& notes = doc["notes"];
+		if (!n.HasMember("t") || !n.HasMember("d"))
+			continue;
 
-		const char* diffNames[3] = { "easy", "normal", "hard" };
+		int timeMs = n["t"].GetInt();
+		int lane = n["d"].GetInt();
 
-		// 현재는 HARD만 사용한다고 가정
-		const Value& arr = notes[diffNames[(int)m_currentDiff]];
+		int type = (lane >= 4) ? 1 : 0;
+		int dir = lane % 4;
 
-		for (auto& n : arr.GetArray())
+		if (type < 0 || type >= 2 || dir < 0 || dir >= (int)ARROW_DIR::END)
+			continue;
+
+		// sustain
+		if (n.HasMember("l") && n["l"].IsInt())
 		{
-			int timeMs = 0;
-			int lane = 0;
-
-			if (n["t"].IsInt())
-				timeMs = n["t"].GetInt();
-			if (n["d"].IsInt())
-				lane = n["d"].GetInt();
-
-			int type = (lane >= 4) ? 1 : 0;
-			int dir = lane % 4;
-
-			// sustain note
-			if (n.HasMember("l") && n["l"].IsInt())
-			{
-				int lengthMs = n["l"].GetInt();
-
-				recordPressList[type][dir].push_back({ timeMs, lengthMs });
-			}
-			else
-			{
-				recordTapList[type][dir].push_back(timeMs);
-			}
+			int lengthMs = n["l"].GetInt();
+			recordPressList[type][dir].push_back({ timeMs, lengthMs });
+		}
+		else
+		{
+			recordTapList[type][dir].push_back(timeMs);
 		}
 	}
 
-	// 채워진 list 기반 note 생성 작업.
+	// =========================
+	// GameObject 생성
+	// =========================
 	for (int i = 0; i < 2; ++i)
 	{
 		for (int j = 0; j < (UINT)ARROW_DIR::END; ++j)
 		{
+			// Tap
+			for (auto iter = recordTapList[i][j].begin(); iter != recordTapList[i][j].end(); ++iter)
 			{
-				list<int>& pList = recordTapList[i][j];
-				for (auto iter = pList.begin(); iter != pList.end(); ++iter)
-				{
-					Ptr<GameObject> noteObj = CreateRecordTapNote((ARROW_DIR)j, *iter, i);
-					m_recordedTapNotes[iter] = { noteObj, *iter, (ARROW_DIR)j };
-				}
+				Ptr<GameObject> noteObj = CreateRecordTapNote((ARROW_DIR)j, *iter, i);
+				m_recordedTapNotes[iter] = { noteObj, *iter, (ARROW_DIR)j };
 			}
+
+			// Press
+			for (auto iter = recordPressList[i][j].begin(); iter != recordPressList[i][j].end(); ++iter)
 			{
-				list<pair<int, int>>& pList = recordPressList[i][j];
-				for (auto iter = pList.begin(); iter != pList.end(); ++iter)
-				{
-					int startPos = iter->first;
-					int pixelLength = iter->second;
-					ARROW_DIR dir = static_cast<ARROW_DIR>(j);
+				int start = iter->first;
+				int len = iter->second;
+				ARROW_DIR dir = (ARROW_DIR)j;
 
-					Ptr<GameObject> headObj = CreateRecordTapNote(dir, startPos, i);
-					Ptr<GameObject> bodyObj = CreateRecordBodyNote(dir, startPos, pixelLength, i);
-					Ptr<GameObject> tailObj = CreateRecordTapNote(dir, startPos, i, false);
+				Ptr<GameObject> head = CreateRecordTapNote(dir, start, i);
+				Ptr<GameObject> body = CreateRecordBodyNote(dir, start, len, i);
+				Ptr<GameObject> tail = CreateRecordTapNote(dir, start, i, false);
 
-					m_recordedPressNotes[iter] = RecordedPressNote({ headObj , bodyObj , tailObj }, startPos, pixelLength, dir);
-				}
+				m_recordedPressNotes[iter] =
+					RecordedPressNote({ head, body, tail }, start, len, dir);
 			}
 		}
 	}
@@ -730,58 +718,6 @@ Ptr<GameObject> NoteDataUI::CreateRecordBodyNote(ARROW_DIR dir, int _pos, int _h
 	gm->GetNoteReceptors()[(UINT)dir + _charidx * 4]->GetOwner()->AddChild(barObj);
 
 	return barObj;
-}
-
-TapIter NoteDataUI::FindSelectedTapNode(ImVec2 _pos, ImVec2 basePos, list<int>& _list)
-{
-	TapIter returnIter = _list.end();
-
-	int songLength = SOUNDMANAGER->GetTotalLength(SONGNUM);
-
-	for (auto iter = _list.begin(); iter != _list.end(); ++iter)
-	{
-		float x = basePos.x + TimeToX_Normalized(*iter, songLength);
-
-		if (_pos.x < x + m_rectLength && _pos.x > x - m_rectLength)
-		{
-			returnIter = iter;
-			break;
-		}
-	}
-
-	return returnIter;
-}
-
-PressIter NoteDataUI::FindSelectedPressNode(ImVec2 _pos, ImVec2 basePos, list<pair<int, int>>& _list)
-{
-	PressIter returnIter = _list.end();
-
-	int songLength = SOUNDMANAGER->GetTotalLength(SONGNUM);
-
-	for (auto iter = _list.begin(); iter != _list.end(); ++iter)
-	{
-		float start = (float)iter->first;
-		float duration = (float)iter->second;
-
-		float xStart = TimeToX_Normalized(start, songLength);
-		float xEnd = TimeToX_Normalized(start + duration, songLength);
-
-		float xMin = basePos.x + xStart;
-		float xMax = basePos.x + xEnd;
-
-		if (_pos.x >= xMin && _pos.x <= xMax)
-		{
-			returnIter = iter;
-			break;
-		}
-	}
-
-	return returnIter;
-}
-
-float NoteDataUI::TimeToX_Normalized(int timeMs, int songLength)
-{
-	return (timeMs / (float)songLength) * m_drawWidth;
 }
 
 ImU32 NoteDataUI::GetArrowColor(int dir)

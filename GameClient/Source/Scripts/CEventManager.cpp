@@ -40,6 +40,14 @@ void CEventManager::Begin()
 
 	m_camDotween = SceneManager::GetInstance()->GetCurrentScene()->FindObjectByName(L"MainCamera")->GetScript<CDotween>().Get();
 
+	m_spotLight[0] = SceneManager::GetInstance()->GetCurrentScene()->FindObjectByName(L"PlayerSpotLight")->Light2D();
+	m_spotLight[1] = SceneManager::GetInstance()->GetCurrentScene()->FindObjectByName(L"OpponentSpotLight")->Light2D();
+
+	m_spotLight[0]->SetLightColor(Vec3(0.f, 0.f, 0.f));
+	m_spotLight[1]->SetLightColor(Vec3(0.f, 0.f, 0.f));
+
+	m_directionalLight = SceneManager::GetInstance()->GetCurrentScene()->FindObjectByName(L"DirectionalLight")->Light2D();
+
 	// Parser 통해 정보 가져오기
 	Parser::GetInstance()->LoadEventData(SONGNAME, this);
 
@@ -60,6 +68,12 @@ void CEventManager::Begin()
 	dir = Vec3(dir.x, dir.y, 0.f);
 
 	m_opponentCamPos = camPos + dir * 80.f;
+
+	std::sort(m_camEventVec.begin(), m_camEventVec.end(),
+		[](const CameraEventInfo& a, const CameraEventInfo& b)
+		{
+			return a.timing < b.timing;
+		});
 }
 
 void CEventManager::Tick()
@@ -89,6 +103,28 @@ void CEventManager::Tick()
 			// 애니메이션 Play
 			m_player->PlayHEY();
 			++m_animEventIdx;
+		}
+
+		// SpotLight 이벤트
+		if (m_lightEventIdx < m_lightEventVec.size() && m_elapsed >= m_lightEventVec[m_lightEventIdx].start)
+		{
+			LightEventInfo currentLightInfo = m_lightEventVec[m_lightEventIdx];
+			int idx = currentLightInfo.value;
+			float lightTime = m_lightEventVec[m_lightEventIdx].end - m_lightEventVec[m_lightEventIdx].start;
+
+			m_lightFlag |= (1 << idx);
+
+			m_directionalLight->SetLightColor(Vec3(0.2f, 0.2f, 0.2f));
+			m_spotLight[idx]->SetLightColor(Vec3(0.9f, 0.9f, 0.9f));
+			m_spotLight[idx]->GetOwner()->GetScript<CDotween>()->DONothing(lightTime)->OnComplete([this, idx]()
+				{
+					m_spotLight[idx]->SetLightColor(Vec3(0.f, 0.f, 0.f));
+					m_lightFlag &= ~(1 << idx);
+					if (m_lightFlag == 0)
+						m_directionalLight->SetLightColor(Vec3(0.9f, 0.9f, 0.9f));
+				});
+
+			m_lightEventIdx++;
 		}
 
 		// cameraZoom 이벤트

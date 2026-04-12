@@ -169,6 +169,12 @@ void AssetManager::CreateEngineShader()
 	shader->SetRSType(RS_TYPE::CULL_NONE);
 	AddAsset(L"Std2DShader", shader.Get());
 
+	shader = new AGraphicShader;
+	shader->CreateVertexShader(L"Shaders\\std2dLight.hlsl", "VS_Std2D");
+	shader->CreatePixelShader(L"Shaders\\std2dLight.hlsl", "PS_Std2D");
+	shader->SetRSType(RS_TYPE::CULL_NONE);
+	AddAsset(L"Std2DLightShader", shader.Get());
+
 	// ===============
 	// BillboardShader
 	// ===============
@@ -312,14 +318,14 @@ void AssetManager::CreateEngineMaterial()
 
 	pMtrl = new AMaterial;
 	pMtrl->SetName(L"StageBack");
-	pMtrl->SetShader(Find<AGraphicShader>(L"Std2DShader"));
+	pMtrl->SetShader(Find<AGraphicShader>(L"Std2DLightShader"));
 	pMtrl->SetTexture(TEX_0, Find<ATexture>(L"stageback"));
 	pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_MASKED);
 	AddAsset(pMtrl->GetName(), pMtrl.Get());
 
 	pMtrl = new AMaterial;
 	pMtrl->SetName(L"StageFront");
-	pMtrl->SetShader(Find<AGraphicShader>(L"Std2DShader"));
+	pMtrl->SetShader(Find<AGraphicShader>(L"Std2DLightShader"));
 	pMtrl->SetTexture(TEX_0, Find<ATexture>(L"stagefront"));
 	pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_MASKED);
 	AddAsset(pMtrl->GetName(), pMtrl.Get());

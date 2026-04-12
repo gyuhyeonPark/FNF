@@ -76,20 +76,20 @@ HRESULT Engine::Init(HINSTANCE _hInst, UINT _width, UINT _height, bool _EditorMo
     }
 
 
-/*    {
+    {
         CreateMainMenuScene();
         ChangeScene(L"MainMenuScene");
         ChangeSceneState(SCENE_STATE::PLAY);
-    }*/
+    }
 
 
-    //SongManager::GetInstance()->CustomON();
+    SongManager::GetInstance()->CustomON();
 
     
-    {
+/*    {
         CreateSongEditorScene();
         ChangeScene(L"SongEditor");
         ChangeSceneState(SCENE_STATE::PLAY);
-    }
+    }*/
     return S_OK;
 }

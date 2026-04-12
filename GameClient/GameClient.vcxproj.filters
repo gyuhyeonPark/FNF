@@ -511,6 +511,12 @@
     <ClInclude Include="ComboManager.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="CameraMoveDataUI.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="LightDataUI.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -790,6 +796,8 @@
     <ClCompile Include="ISongDataUI.cpp" />
     <ClCompile Include="NoteDataUI.cpp" />
     <ClCompile Include="ComboManager.cpp" />
+    <ClCompile Include="CameraMoveDataUI.cpp" />
+    <ClCompile Include="LightDataUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Libraries\Include\FMOD\fmod_dsp.cs">
@@ -849,6 +857,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="..\Game\Contents\Shaders\NoteBarShader.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Game\Contents\Shaders\std2dLight.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

@@ -37,9 +37,6 @@ private:
 
 	void ChangeSong(DWORD_PTR _ListUI);
 
-	void DetectPicking();
-	void DetectEventPicking();
-
 	void SaveMap();
 	void LoadMap(const wstring& fileName);
 
@@ -48,8 +45,6 @@ private:
 private:
 	std::vector<WaveSample> m_waveform[2];
 	std::vector<pair<string, string>> AudioWaveNameVec;
-
-	std::list<int> eventTimings[(int)EVENT_TYPE::END][2];
 
 	STAGENUM m_currentSong;
 	DIFFICULTIES m_currentDiff;
@@ -60,10 +55,7 @@ private:
 	ImVec2 playerPos;
 	ImVec2 opponentPos;
 
-	bool m_eventMode;
 	bool m_recordMode;
-
-	//pair<TapIter, std::list<int>*> m_pickEventInfo;
 
 	ISongDataUI* m_songDataUIs[(UINT)EDIT_TYPE::END];
 	EDIT_TYPE m_currentType;

@@ -332,6 +332,9 @@ Ptr<CDotween> CDotween::DONothing(double p_duration)
 {
 	CDotweenTimer* m_doNothingTweenTimer = dotweenTimerVector[UINT(TimerIndex::NothingTimer)].Get();
 
+	m_doNothingTweenTimer->Init();
+
+	m_doNothingTweenTimer->Start();
 	m_doNothingTweenTimer->duration = p_duration;
 
 	currentTimerIndex = TimerIndex::NothingTimer;

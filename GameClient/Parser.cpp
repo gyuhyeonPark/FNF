@@ -240,6 +240,40 @@ bool Parser::LoadEventData(const wstring& songName, Ptr<CEventManager> eventMana
 
             eventManager->AddCameraEvent(CameraEventInfo(timing, value));
         }
+        else if (strcmp(type, "Light") == 0)
+        {
+            if (!ev.HasMember("v") || !ev.HasMember("t"))
+                continue;
+
+            const auto& v = ev["v"];
+
+            if (!v.IsObject())
+                continue;
+
+            int side = 0;
+            int endTime = 0;
+
+            // side
+            if (v.HasMember("side") && v["side"].IsInt())
+                side = v["side"].GetInt();
+            else
+                continue;
+
+            // end
+            if (v.HasMember("end") && v["end"].IsInt())
+                endTime = v["end"].GetInt();
+            else
+                continue;
+
+            // start (t)
+            int startTime = ev["t"].GetInt();
+
+            // ms → sec 변환 (Camera랑 동일하게 맞춤)
+            float start = startTime * 0.001f;
+            float end = endTime * 0.001f;
+
+            eventManager->AddLightEvent(LightEventInfo{ start, end, side });
+        }
         // PlayAnimation (HEY 고정)
         else if (strcmp(type, "PlayAnimation") == 0)
         {

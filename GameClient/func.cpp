@@ -390,35 +390,9 @@ void CreateSongEditorScene()
 	pScene->AddObject(1, pObject);
 #pragma endregion
 
-#pragma region BackGrounds
-/*	pObject = new GameObject;
-	pObject->SetName(L"StageFront");
-	pObject->AddComponent(new CTransform);
-	pObject->AddComponent(new CMeshRenderer);
-	pObject->MeshRenderer()->SetMesh(FIND(AMesh, L"RectMesh"));
-	pObject->MeshRenderer()->SetMaterial(FIND(AMaterial, L"StageFront"));
-
-	pObject->Transform()->SetRelativeScale(Vec3(2000.f, 600.f, 1.f));
-	pObject->Transform()->SetRelativePosition(Vec3(-11.f, -411.f, 100.f));
-	pScene->AddObject(1, pObject);
-
-	pObject = new GameObject;
-	pObject->SetName(L"StageBack");
-	pObject->AddComponent(new CTransform);
-	pObject->AddComponent(new CMeshRenderer);
-	pObject->MeshRenderer()->SetMesh(FIND(AMesh, L"RectMesh"));
-	pObject->MeshRenderer()->SetMaterial(FIND(AMaterial, L"StageBack"));
-
-	pObject->Transform()->SetRelativeScale(Vec3(2000.f, 900.f, 1.f));
-	pObject->Transform()->SetRelativePosition(Vec3(0.f, 0.f, 100.f));
-	pScene->AddObject(1, pObject);*/
-
-#pragma endregion
-
-
 	// 광원 추가
 	pObject = new GameObject;
-	pObject->SetName(L"Light");
+	pObject->SetName(L"DirectionalLight");
 	pObject->AddComponent(new CTransform);
 	pObject->AddComponent(new CLight2D);
 
@@ -427,6 +401,67 @@ void CreateSongEditorScene()
 	pObject->Light2D()->SetAmbient(Vec3(0.15f, 0.15f, 0.15f));
 
 	pScene->AddObject(0, pObject);
+
+	// 광원 추가
+	Vec3 dirVec;
+
+	{
+		pObject = new GameObject;
+		pObject->SetName(L"PlayerSpotLight");
+		pObject->AddComponent(new CTransform);
+		pObject->AddComponent(new CLight2D);
+		pObject->AddComponent(new CDotween);
+
+		pObject->Light2D()->SetLightType(LIGHT_TYPE::SPOT);
+		pObject->Light2D()->SetLightColor(Vec3(0.9f, 0.9f, 0.9f));
+		pObject->Light2D()->SetAmbient(Vec3(0.15f, 0.15f, 0.15f));
+		pObject->Light2D()->SetRadius(1000.f);
+		pObject->Transform()->SetRelativePosition(Vec3(224.f, 370.f, 10.f));
+
+		dirVec = playerObject->Transform()->GetRelativePosition() - pObject->Transform()->GetRelativePosition();
+		dirVec.z = 0.f;
+		dirVec.Normalize();
+
+		Vec3 base(1.f, 0.f, 0.f);		// 우벡터 기준
+		dirVec.Normalize();
+		float dot = base.Dot(dirVec);
+		float crossZ = base.Cross(dirVec).z;
+
+		float angleZ = atan2(crossZ, dot);
+
+		pObject->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, -90.f));
+		pObject->Light2D()->SetAngle(35.f);
+		pScene->AddObject(0, pObject);
+	}
+
+	{
+		pObject = new GameObject;
+		pObject->SetName(L"OpponentSpotLight");
+		pObject->AddComponent(new CTransform);
+		pObject->AddComponent(new CLight2D);
+		pObject->AddComponent(new CDotween);
+
+		pObject->Light2D()->SetLightType(LIGHT_TYPE::SPOT);
+		pObject->Light2D()->SetLightColor(Vec3(0.9f, 0.9f, 0.9f));
+		pObject->Light2D()->SetAmbient(Vec3(0.15f, 0.15f, 0.15f));
+		pObject->Light2D()->SetRadius(800.f);
+		pObject->Transform()->SetRelativePosition(Vec3(-266.f, 370.f, 10.f));
+
+		dirVec = playerObject->Transform()->GetRelativePosition() - pObject->Transform()->GetRelativePosition();
+		dirVec.z = 0.f;
+		dirVec.Normalize();
+
+		Vec3 base(1.f, 0.f, 0.f);		// 우벡터 기준
+		dirVec.Normalize();
+		float dot = base.Dot(dirVec);
+		float crossZ = base.Cross(dirVec).z;
+
+		float angleZ = atan2(crossZ, dot);
+
+		pObject->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, -90.f));
+		pObject->Light2D()->SetAngle(40.f);
+		pScene->AddObject(0, pObject);
+	}
 
 	// AddChilde 이후 AddObj
 	pScene->AddObject(0, camObj);
@@ -915,7 +950,7 @@ void CreateScene(STAGENUM stage, DIFFICULTIES diff, wstring sceneName)
 
 	// 광원 추가
 	pObject = new GameObject;
-	pObject->SetName(L"Light");
+	pObject->SetName(L"DirectionalLight");
 	pObject->AddComponent(new CTransform);
 	pObject->AddComponent(new CLight2D);
 
@@ -926,37 +961,69 @@ void CreateScene(STAGENUM stage, DIFFICULTIES diff, wstring sceneName)
 	pScene->AddObject(0, pObject);
 
 	// 광원 추가
-/*	Vec3 dirVec;
+	Vec3 dirVec;
 
+	{
+		pObject = new GameObject;
+		pObject->SetName(L"PlayerSpotLight");
+		pObject->AddComponent(new CTransform);
+		pObject->AddComponent(new CLight2D);
+		pObject->AddComponent(new CDotween);
+
+		pObject->Light2D()->SetLightType(LIGHT_TYPE::SPOT);
+		pObject->Light2D()->SetLightColor(Vec3(0.9f, 0.9f, 0.9f));
+		pObject->Light2D()->SetAmbient(Vec3(0.15f, 0.15f, 0.15f));
+		pObject->Light2D()->SetRadius(1000.f);
+		pObject->Transform()->SetRelativePosition(Vec3(224.f, 370.f, 10.f));
+
+		dirVec = playerObject->Transform()->GetRelativePosition() - pObject->Transform()->GetRelativePosition();
+		dirVec.z = 0.f;
+		dirVec.Normalize();
+
+		Vec3 base(1.f, 0.f, 0.f);		// 우벡터 기준
+		dirVec.Normalize();
+		float dot = base.Dot(dirVec);
+		float crossZ = base.Cross(dirVec).z;
+
+		float angleZ = atan2(crossZ, dot);
+
+		pObject->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, angleZ));
+		pObject->Light2D()->SetAngle(35.f);
+		pScene->AddObject(0, pObject);
+	}
+
+	{
+		pObject = new GameObject;
+		pObject->SetName(L"OpponentSpotLight");
+		pObject->AddComponent(new CTransform);
+		pObject->AddComponent(new CLight2D);
+		pObject->AddComponent(new CDotween);
+
+		pObject->Light2D()->SetLightType(LIGHT_TYPE::SPOT);
+		pObject->Light2D()->SetLightColor(Vec3(0.9f, 0.9f, 0.9f));
+		pObject->Light2D()->SetAmbient(Vec3(0.15f, 0.15f, 0.15f));
+		pObject->Light2D()->SetRadius(800.f);
+		pObject->Transform()->SetRelativePosition(Vec3(-266.f, 370.f, 10.f));
+
+		dirVec = playerObject->Transform()->GetRelativePosition() - pObject->Transform()->GetRelativePosition();
+		dirVec.z = 0.f;
+		dirVec.Normalize();
+
+		Vec3 base(1.f, 0.f, 0.f);		// 우벡터 기준
+		dirVec.Normalize();
+		float dot = base.Dot(dirVec);
+		float crossZ = base.Cross(dirVec).z;
+
+		float angleZ = atan2(crossZ, dot);
+
+		pObject->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, angleZ));
+		pObject->Light2D()->SetAngle(40.f);
+		pScene->AddObject(0, pObject);
+	}
+
+/*	// 광원 추가
 	pObject = new GameObject;
-	pObject->SetName(L"Light1");
-	pObject->AddComponent(new CTransform);
-	pObject->AddComponent(new CLight2D);
-
-	pObject->Light2D()->SetLightType(LIGHT_TYPE::SPOT);
-	pObject->Light2D()->SetLightColor(Vec3(0.f, 1.f, 0.f));
-	pObject->Light2D()->SetAmbient(Vec3(0.15f, 0.15f, 0.15f));
-	pObject->Light2D()->SetRadius(800.f);
-	pObject->Transform()->SetRelativePosition(Vec3(150.f, 400.f, 10.f));
-
-	dirVec = playerObject->Transform()->GetRelativePosition() - pObject->Transform()->GetRelativePosition();
-	dirVec.z = 0.f;
-	dirVec.Normalize();
-
-	Vec3 base(1.f, 0.f, 0.f);		// 우벡터 기준
-	dirVec.Normalize();
-	float dot = base.Dot(dirVec);
-	float crossZ = base.Cross(dirVec).z;
-
-	float angleZ = atan2(crossZ, dot);
-
-	pObject->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, angleZ));
-	pObject->Light2D()->SetAngle(40.f);
-	pScene->AddObject(0, pObject);
-
-	// 광원 추가
-	pObject = new GameObject;
-	pObject->SetName(L"Light2");
+	pObject->SetName(L"PlayerSpotLight");
 	pObject->AddComponent(new CTransform);
 	pObject->AddComponent(new CLight2D);
 
@@ -970,18 +1037,19 @@ void CreateScene(STAGENUM stage, DIFFICULTIES diff, wstring sceneName)
 
 	dirVec.z = 0.f;
 	dirVec.Normalize();
-	dot = base.Dot(dirVec);
-	crossZ = base.Cross(dirVec).z;
+	Vec3 base(1.f, 0.f, 0.f);
+	float dot = base.Dot(dirVec);
+	float crossZ = base.Cross(dirVec).z;
 
-	angleZ = atan2(crossZ, dot);
+	float angleZ = atan2(crossZ, dot);
 
 	pObject->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, angleZ));
 	pObject->Light2D()->SetAngle(40.f);
 
-	pScene->AddObject(0, pObject);
+	pScene->AddObject(0, pObject);*/
 
 	// 광원 추가
-	pObject = new GameObject;
+/*	pObject = new GameObject;
 	pObject->SetName(L"Light3");
 	pObject->AddComponent(new CTransform);
 	pObject->AddComponent(new CLight2D);

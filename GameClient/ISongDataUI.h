@@ -9,12 +9,19 @@ enum class EDIT_TYPE
 	NOTE,
 	CAMERA,
 	LIGHT,
-	ZOOM,
+	//ZOOM,
 	END,
 };
 
+typedef std::list<int>::iterator TapIter;
+typedef std::list<std::pair<int, int>>::iterator PressIter;
+
 class ISongDataUI : virtual public EditorUI
 {
+public:
+	ISongDataUI();
+	virtual ~ISongDataUI();
+
 public:
 	virtual void Update() = 0;
 	virtual void DrawOnWaveForm(int _idx) = 0;
@@ -33,6 +40,15 @@ protected:
 	virtual void Delete() = 0;
 	virtual void DetectPicking() = 0;
 
+	float TimeToX_Normalized(int timeMs, int songLength)
+	{
+		return (timeMs / (float)songLength) * m_drawWidth;
+	}
+
+	TapIter FindSelectedTapNode(ImVec2 _pos, ImVec2 basePos, list<int>& _list);
+	PressIter FindSelectedPressNode(ImVec2 _pos, ImVec2 basePos, list<pair<int, int>>& _list);
+
+
 protected:
 	bool m_charIdx;		// 0 : player  1 : opponent
 
@@ -42,5 +58,9 @@ protected:
 	// WaveForm 상에서의 좌표
 	ImVec2 m_playerPos;
 	ImVec2 m_opponentPos;
+
+	const float m_drawWidth;
+	const float m_drawHeight;
+	float m_rectLength;		// 그려질 Note의 Node 크기
 };
 

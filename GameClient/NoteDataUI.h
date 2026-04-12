@@ -17,9 +17,6 @@ struct RecordedPressNote
 	ARROW_DIR dir;
 };
 
-typedef std::list<int>::iterator TapIter;
-typedef std::list<std::pair<int, int>>::iterator PressIter;
-
 #pragma region Hashes
 struct TapIterHash
 {
@@ -83,10 +80,6 @@ private:
 	Ptr<GameObject> CreateRecordTapNote(ARROW_DIR dir, int _pos, bool _charidx, bool isHead = true);
 	Ptr<GameObject> CreateRecordBodyNote(ARROW_DIR dir, int _pos, int _holdTime, bool _charidx);
 
-	TapIter FindSelectedTapNode(ImVec2 _pos, ImVec2 basePos, list<int>& _list);
-	PressIter FindSelectedPressNode(ImVec2 _pos, ImVec2 basePos, list<pair<int, int>>& _list);
-
-	float TimeToX_Normalized(int timeMs, int songLength);
 	ImU32 GetArrowColor(int dir);
 
 	void UpdateNoteActive();
@@ -108,11 +101,7 @@ private:
 	std::stack<pair<bool, int>> m_recentlyPos;		// charidx, pos
 	int m_pressStart[4];
 
-	const float m_drawWidth;
-	const float m_drawHeight;
-
 	float m_noteSpeed;
-	float m_rectLength;		// 그려질 Note의 Node 크기
 
 	DIFFICULTIES m_currentDiff;
 };

@@ -42,6 +42,9 @@
 #include "C:\Users\141245124\source\repos\GameClient\FNF\GameClient\BeatCamera.cpp"
 
 
+#include "C:\Users\141245124\source\repos\GameClient\FNF\GameClient\CameraMoveDataUI.cpp"
+
+
 #include "C:\Users\141245124\source\repos\GameClient\FNF\GameClient\CameraUI.cpp"
 
 
@@ -148,6 +151,9 @@
 
 
 #include "C:\Users\141245124\source\repos\GameClient\FNF\GameClient\Light2DUI.cpp"
+
+
+#include "C:\Users\141245124\source\repos\GameClient\FNF\GameClient\LightDataUI.cpp"
 
 
 #include "C:\Users\141245124\source\repos\GameClient\FNF\GameClient\ListUI.cpp"
